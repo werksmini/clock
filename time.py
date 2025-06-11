@@ -3,6 +3,8 @@
 import sys
 import os
 
+#This is a test
+
 # Setup directories
 picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
