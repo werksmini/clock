@@ -3,8 +3,6 @@
 import sys
 import os
 
-#This is a test
-
 # Setup directories
 picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
@@ -19,8 +17,8 @@ from waveshare_epd import epd5in79
 logging.basicConfig(level=logging.DEBUG)
 
 # CONFIGURABLE OPTIONS
-mode = "classic"  # options: classic, inverted, invert_numbers
-font_choice = "MoiraiOne.ttf"  # choose from available fonts listed below
+mode = "inverted"  # options: classic, inverted, invert_numbers
+font_choice = "DS-DIGIT.TTF"  # choose from available fonts listed below
 
 # Available Fonts:
 # SpaceMono-Regular.ttf
@@ -44,7 +42,7 @@ try:
     epd.Clear()
     time.sleep(1)
 
-    font = ImageFont.truetype(os.path.join(picdir, font_choice), 225)
+    font = ImageFont.truetype(os.path.join(picdir, font_choice), 300)
 
     while True:
         # Set background color based on mode
