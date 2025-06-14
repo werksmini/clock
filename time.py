@@ -59,14 +59,16 @@ try:
     epd.Clear()
     time.sleep(1)
 
+    # Track last switch state
     last_state = None
+    full_refresh = True  # Force full refresh on startup
 
     while True:
         switch_state = get_switch_state()
-
         if switch_state != last_state:
             logging.info(f"Switch changed to {switch_state}")
             last_state = switch_state
+            full_refresh = True  # Trigger full refresh on change
 
         profile = font_profiles.get(switch_state, font_profiles[(0, 0)])
         mode = profile["mode"]
@@ -75,7 +77,6 @@ try:
 
         font = ImageFont.truetype(os.path.join(picdir, font_choice), font_size)
 
-        # Set background color based on mode
         bg_color = 255 if mode == "classic" else 0
         text_color = 0 if mode == "classic" else 255
 
@@ -87,7 +88,6 @@ try:
         bbox = draw.textbbox((0, 0), current_time, font=font)
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
-
         x = (epd.width - text_width) // 2
         y = (epd.height - text_height) // 2 - bbox[1]
 
@@ -99,8 +99,16 @@ try:
             image = Image.eval(inverted, lambda px: 255 - px)
 
         image = image.rotate(180)
-        epd.display_Partial(epd.getbuffer(image))
+
+        # Full or partial refresh based on state change
+        if full_refresh:
+            epd.display(epd.getbuffer(image))
+            full_refresh = False
+        else:
+            epd.display_Partial(epd.getbuffer(image))
+
         time.sleep(1)
+
 
 except IOError as e:
     logging.error(e)
