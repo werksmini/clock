@@ -29,10 +29,10 @@ GPIO.setup(SWITCH_PIN_B, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # --- Font profiles for each switch position ---
 font_profiles = {
-    (0, 0): {"mode": "classic", "font": "SpaceMono-Regular.ttf", "size": 250},
-    (0, 1): {"mode": "inverted", "font": "DS-DIGIT.TTF", "size": 300},
-    (1, 0): {"mode": "invert_numbers", "font": "LEDBDREV.TTF", "size": 200},
-    (1, 1): {"mode": "inverted", "font": "FLIPclockblack.ttf", "size": 220},
+    (0, 1): {"mode": "inverted", "font": "DS-DIGIT.TTF", "size": 300}, #position 1
+    (0, 0): {"mode": "inverted", "font": "Roboto_Condensed-Black.ttf", "size": 250}, #position 3
+    (1, 0): {"mode": "inverted", "font": "SpaceMono-Regular.ttf", "size": 200},   #position 2
+    (1, 1): {"mode": "inverted", "font": "FLIPclockblack.ttf", "size": 220},  #position 4
 }
 
 # Available Fonts:
