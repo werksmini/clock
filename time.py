@@ -107,7 +107,7 @@ try:
 
             if full_refresh:
                 epd.Clear()              # Fully clear display first
-                time.sleep(0.5)          # Give it time to settle
+                time.sleep(0.1)          # Give it time to settle
                 epd.display(epd.getbuffer(image))
                 full_refresh = False
             else:
