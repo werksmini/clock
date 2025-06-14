@@ -3,6 +3,8 @@
 import sys
 import os
 
+#test to see if vscode switches to new branch
+
 # Setup directories
 picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
