@@ -59,61 +59,61 @@ try:
     epd.Clear()
     time.sleep(1)
 
-last_switch_state = None  # Track last switch state
-last_display_time = 0
-refresh_interval = 1  # seconds
-full_refresh = True  # Trigger on startup
+    last_switch_state = None  # Track last switch state
+    last_display_time = 0
+    refresh_interval = 1  # seconds
+    full_refresh = True  # Trigger on startup
 
-while True:
-    now = time.time()
-    switch_state = get_switch_state()
+    while True:
+        now = time.time()
+        switch_state = get_switch_state()
 
-    if switch_state != last_switch_state:
-        logging.info(f"Switch changed to {switch_state}")
-        last_switch_state = switch_state
-        full_refresh = True
-        last_display_time = 0  # Force redraw immediately
+        if switch_state != last_switch_state:
+            logging.info(f"Switch changed to {switch_state}")
+            last_switch_state = switch_state
+            full_refresh = True
+            last_display_time = 0  # Force redraw immediately
 
-    # Only update the display every 1 second
-    if now - last_display_time >= refresh_interval:
-        profile = font_profiles.get(switch_state, font_profiles[(0, 0)])
-        mode = profile["mode"]
-        font_choice = profile["font"]
-        font_size = profile["size"]
+        # Only update the display every 1 second
+        if now - last_display_time >= refresh_interval:
+            profile = font_profiles.get(switch_state, font_profiles[(0, 0)])
+            mode = profile["mode"]
+            font_choice = profile["font"]
+            font_size = profile["size"]
 
-        font = ImageFont.truetype(os.path.join(picdir, font_choice), font_size)
+            font = ImageFont.truetype(os.path.join(picdir, font_choice), font_size)
 
-        bg_color = 255 if mode == "classic" else 0
-        text_color = 0 if mode == "classic" else 255
+            bg_color = 255 if mode == "classic" else 0
+            text_color = 0 if mode == "classic" else 255
 
-        image = Image.new('1', (epd.width, epd.height), bg_color)
-        draw = ImageDraw.Draw(image)
+            image = Image.new('1', (epd.width, epd.height), bg_color)
+            draw = ImageDraw.Draw(image)
 
-        current_time = time.strftime('%I:%M').lstrip('0')
-        bbox = draw.textbbox((0, 0), current_time, font=font)
-        text_width = bbox[2] - bbox[0]
-        text_height = bbox[3] - bbox[1]
-        x = (epd.width - text_width) // 2
-        y = (epd.height - text_height) // 2 - bbox[1]
+            current_time = time.strftime('%I:%M').lstrip('0')
+            bbox = draw.textbbox((0, 0), current_time, font=font)
+            text_width = bbox[2] - bbox[0]
+            text_height = bbox[3] - bbox[1]
+            x = (epd.width - text_width) // 2
+            y = (epd.height - text_height) // 2 - bbox[1]
 
-        draw.text((x, y), current_time, font=font, fill=text_color)
+            draw.text((x, y), current_time, font=font, fill=text_color)
 
-        if mode == "invert_numbers":
-            inverted = Image.new('1', (epd.width, epd.height), 255)
-            inverted.paste(image)
-            image = Image.eval(inverted, lambda px: 255 - px)
+            if mode == "invert_numbers":
+                inverted = Image.new('1', (epd.width, epd.height), 255)
+                inverted.paste(image)
+                image = Image.eval(inverted, lambda px: 255 - px)
 
-        image = image.rotate(180)
+            image = image.rotate(180)
 
-        if full_refresh:
-            epd.display(epd.getbuffer(image))
-            full_refresh = False
-        else:
-            epd.display_Partial(epd.getbuffer(image))
+            if full_refresh:
+                epd.display(epd.getbuffer(image))
+                full_refresh = False
+            else:
+                epd.display_Partial(epd.getbuffer(image))
 
-        last_display_time = now
+            last_display_time = now
 
-    time.sleep(0.05)  # Fast input polling (20x per second)
+        time.sleep(0.05)  # Fast input polling (20x per second)
 
 except IOError as e:
     logging.error(e)
