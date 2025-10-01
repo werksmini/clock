@@ -31,8 +31,8 @@ GPIO.setup(SWITCH_PIN_B, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 font_profiles = {
     (0, 1): {"mode": "inverted", "font": "DS-DIGIT.TTF", "size": 300}, #position 3
     (0, 0): {"mode": "inverted", "font": "Roboto-Regular.ttf", "size": 250}, #position 1
-    (1, 0): {"mode": "inverted", "font": "WDXLLubrifontJPN-Regular", "size": 240},   #position 2
-    (1, 1): {"mode": "inverted", "font": "Outfit-Regular", "size": 270},  #position 4
+    (1, 0): {"mode": "inverted", "font": "WDXLLubrifontJPN-Regular.ttf", "size": 240},   #position 2
+    (1, 1): {"mode": "inverted", "font": "Outfit-Regular.ttf", "size": 270},  #position 4
 }
 
 # Available Fonts:
