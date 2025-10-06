@@ -32,7 +32,7 @@ font_profiles = {
     (0, 1): {"mode": "inverted", "font": "DS-DIGIT.TTF", "size": 220}, #position 3
     (0, 0): {"mode": "inverted", "font": "Roboto-Regular.ttf", "size": 200}, #position 1
     (1, 0): {"mode": "inverted", "font": "WDXLLubrifontJPN-Regular.ttf", "size": 240},   #position 2
-    (1, 1): {"mode": "inverted", "font": "Outfit-Regular.ttf", "size": 200},  #position 4
+    (1, 1): {"mode": "inverted", "font": "Outfit-Regular.ttf", "size": 230},  #position 4
 }
 
 # Available Fonts:
